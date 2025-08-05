@@ -8,7 +8,7 @@ import Favourite from './pages/favourite'
 import Home from './pages/home'
 import Search from './pages/search'
 import SingleGif from './pages/single-gif'
-import GifProvider from './context/gif.context'
+import GifProvider from './context/gif-context'
 
 const router = createBrowserRouter([
   {

@@ -12,7 +12,7 @@ const GifSearch = () => {
             return;
         }
 
-        navigate('/search/${query}')
+        navigate(`/search/${query}`)
     }
   return (
     <div className='flex relative'>
@@ -20,6 +20,7 @@ const GifSearch = () => {
         type="text" 
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && searchGIFs()}
         placeholder="Search all the GIFs and Stickers"
         className='w-full pl-4 pr-14 py-5 text-xl text-black rounded-tl rounded-bl border border-gray-300 outline-none'
         />
