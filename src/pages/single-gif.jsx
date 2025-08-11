@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { GifState } from '../context/gif-context'
 import Gif from '../components/Gif'
-import { HiMiniChevronDown, HiMiniChevronUp } from 'react-icons/hi2'
+import { HiMiniChevronDown, HiMiniChevronUp, HiMiniHeart } from 'react-icons/hi2'
 import FollowOn from '../components/FollowOn'
 import { HiOutlineExternalLink } from 'react-icons/hi'
 import { FaPaperPlane } from 'react-icons/fa'
+import { IoCodeSharp } from 'react-icons/io5'
 
 
 const contentType = ["gifs", "stickers", "texts"]
@@ -17,7 +18,15 @@ const SingleGif = () => {
   const [relatedGifs, setRelatedGifs] = useState([])
   const [readMore, setReadMore] = useState(false)
 
-  const {gf, addToFavorites} = GifState()
+  const {gf, addToFavorites, favorites} = GifState()
+
+  const shareGif = () => {
+    //do it
+  }
+
+  const EmbedGif = () => {
+    //do it
+  }
 
   const fetchGif = async () => {
     const gifId = slug.split("-")
@@ -37,7 +46,7 @@ const SingleGif = () => {
   }, [])
 
   return (
-    <div className='grid grid-cols-4 my-10 gap-4'>
+    <div className='grid grid-cols-4 my-6 gap-4'>
       <div className='hidden sm:block'>
         {gif?.user && (
           <>
@@ -59,7 +68,7 @@ const SingleGif = () => {
         className='flex items-center faded-text cursor-pointer'
         onClick={() => setReadMore(!readMore)}
       >
-        {readMore ? (
+        {!readMore ? (
           <>
             Read less <HiMiniChevronUp size={20} />
           </>
@@ -91,11 +100,12 @@ const SingleGif = () => {
         )}
       </div>
       <div className='col-span-4 sm:col-span-3'>
-        <div className='flex gap-6'>
-          <div className='w-full sm:w-3/4'>
+        <div className='flex gap-16'>
+          <div className='w-full sm:w-[50%] '>
             <div className='faded-text truncate mb-2'>
-              {gif.title}
-              <Gif gif={gif} hover={false}/> 
+              <div className='mb-5'>{gif.title}</div>
+              
+              <Gif gif={gif} hover={false} /> 
 
               <div className='flex sm:hidden gap-1'>
                               <img src={gif?.user?.avatar_url} alt={gif?.user?.display_name} className='h-14' />
@@ -114,10 +124,31 @@ const SingleGif = () => {
               </div> 
             </div>
           </div>
-          favourites / share / embed
+          
+          <div className='hidden sm:flex flex-col gap-5 mt-9'>
+            <button onClick={()=> addToFavorites(gif.id)} className='flex gap-5 items-center  font-bold text-md'>
+              <HiMiniHeart size={20} className={`${favorites.includes(gif.id) ? "text-red-500" : ""} hover:text-red-500`}/>
+              Favorite
+            </button>
+            <button onClick={shareGif} className='flex gap-6 items-center font-bold text-md'>
+              <FaPaperPlane size={15} className='hover:text-blue-500' />
+              Share
+            </button>
+            <button onClick={EmbedGif} className='flex gap-5 items-center font-bold text-md'>
+              <IoCodeSharp size={20}  className='hover:text-pink-500'/>
+              Embed
+            </button>
+          </div>
         </div>
-        <div>
-          <span className='font-extrabold'>Related GIFs</span>
+
+        <div className='divider'/>
+        <div className='flex flex-col gap-3 mt-6'>
+          <span className='font-extrabold '>Related GIFs</span>
+          <div className='columns-2 md:columns-3 gap-2'>
+            {relatedGifs.slice(1).map((gif)=>(
+              <Gif gif={gif} key={gif.id}/>
+            ))}
+          </div>
         </div>
       </div>
     </div>
