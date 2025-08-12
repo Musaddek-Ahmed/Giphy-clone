@@ -38,13 +38,13 @@ const EmbedGif = () => {
     setRelatedGifs(related)
   }
 
-  useEffect(()=> {
-    if (!contentType.includes(type)) {
-      throw new Error("Invalid Content Type")
-    }
-
-    fetchGif()
-  }, [])
+useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (!contentType.includes(type)) {
+    throw new Error("Invalid Content Type");
+  }
+  fetchGif();
+}, [type, slug]);
 
   return (
     <div className='grid grid-cols-4 my-6 gap-4'>
