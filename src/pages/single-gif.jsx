@@ -15,18 +15,19 @@ const contentType = ["gifs", "stickers", "texts"]
 const SingleGif = () => {
   const {type, slug} = useParams()
   const [gif, setGif] = useState({})
+  const [overlayMode, setOverlayMode] = useState(null);
   const [relatedGifs, setRelatedGifs] = useState([])
   const [readMore, setReadMore] = useState(false)
 
   const {gf, addToFavorites, favorites} = GifState()
 
-  const shareGif = () => {
-    //do it
-  }
+const shareGif = () => {
+  setOverlayMode((prev) => (prev === "share" ? null : "share"));
+};
 
-  const EmbedGif = () => {
-    //do it
-  }
+const EmbedGif = () => {
+  setOverlayMode((prev) => (prev === "embed" ? null : "embed"));
+};
 
   const fetchGif = async () => {
     const gifId = slug.split("-")
@@ -105,7 +106,7 @@ const SingleGif = () => {
             <div className='faded-text truncate mb-2'>
               <div className='mb-5'>{gif.title}</div>
               
-              <Gif gif={gif} hover={false} /> 
+              <Gif gif={gif} hover={false} overlayMode={overlayMode} />
 
               <div className='flex sm:hidden gap-1'>
                               <img src={gif?.user?.avatar_url} alt={gif?.user?.display_name} className='h-14' />

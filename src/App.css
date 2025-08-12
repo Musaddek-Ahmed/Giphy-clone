@@ -12,4 +12,6 @@
   .divider {
     @apply w-full h-0.5 my-6 bg-gray-800;
   }
+
 }
+
