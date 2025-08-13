@@ -117,9 +117,9 @@ useEffect(() => {
 
               <button 
               className='ml-auto' 
-              // onClick={shareGif}
+              onClick={shareGif}
               >
-                <FaPaperPlane size={25}/>
+                <FaPaperPlane size={25} className='hover:text-blue-500'/>
               </button> 
                 
               </div> 
